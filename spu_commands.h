@@ -3,16 +3,16 @@
 
 #include "stack_typedefs.h"
 
-SPU_ERROR spu_run_program       (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_init_program_code (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_dtor_stack        (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_init_commands     (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_commands_push     (PROGRAM_CODE* programCodeInfo, StackElem_t *push_element);
-SPU_ERROR spu_commands_pop      (PROGRAM_CODE* programCodeInfo, StackElem_t *pop_element);
-SPU_ERROR spu_commands_add      (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_commands_mult     (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_commands_div      (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_commands_sub      (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_commands_hlt      (PROGRAM_CODE* programCodeInfo);
+SPU_ERROR spu_run_program       (SPU* spuInfo);
+SPU_ERROR spu_init_program_code (SPU* spuInfo);
+SPU_ERROR spu_dtor_stack        (SPU* spuInfo);
+SPU_ERROR spu_init_commands     (SPU* spuInfo);
+SPU_ERROR spu_push              (SPU* spuInfo, StackElem_t *push_element);
+SPU_ERROR spu_pop               (SPU* spuInfo, StackElem_t *pop_element);
+SPU_ERROR spu_add               (SPU* spuInfo);
+SPU_ERROR spu_mult              (SPU* spuInfo);
+SPU_ERROR spu_div               (SPU* spuInfo);
+SPU_ERROR spu_sub               (SPU* spuInfo);
+SPU_ERROR spu_hlt               (SPU* spuInfo);
 
 #endif

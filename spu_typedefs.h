@@ -5,10 +5,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct PROGRAM_CODE
+struct SPU
 {
     FILE*   input_file;
-    FILE*   output_file;
     ssize_t size;
     int*    program_code;
     int     instructional_pointer;
@@ -32,6 +31,16 @@ enum SPU_ERROR
     SPU_END_PROGRAM                          = 12,
     SPU_INVALID_OPERATION_DIV_ON_ZERO        = 13
 };
+
+//INSTRUCTION(PUSH, 5, {
+//    push(value);
+//})
+//
+//INSTRUCTION(ADD, 13, {
+//    StackElem_t val1 = pop();
+//    StackElem_t val2 = pop();
+//    push(val1 + val2);
+//})
 
 enum PROCESSOR_COMMANDS
 {

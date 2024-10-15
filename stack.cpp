@@ -140,7 +140,7 @@ STACK_ERROR _stack_dump(STACK* stackInfo, const char* __FILE, const int __LINE, 
 
     if (stackInfo->error_info == STACK_NONE)
     {
-        graphic_printf(GREEN, BOLD, "NO ERRORS\nYEEEAAAAAAHHHHHH, BIIIIIIITTTCHHHH, PROGRAAAAMIIIINNNNGG!!!!!!!!!!!!!!\n");
+        graphic_printf(GREEN, BOLD, "NO ERRORS\nGOOOOOOOOOOOOL\n");
     }
     else
     {

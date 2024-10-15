@@ -3,12 +3,12 @@
 
 #include "spu_typedefs.h"
 
-SPU_ERROR spu_init_program_code_info (PROGRAM_CODE* programCodeInfo, int argc, const char* argv[]);
-SPU_ERROR spu_dtor_program_code_info (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_init_files             (PROGRAM_CODE* programCodeInfo, int argc, const char* argv[]);
-SPU_ERROR spu_init_program_code_size (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_read_program_code_size (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_read_program_code      (PROGRAM_CODE* programCodeInfo);
-SPU_ERROR spu_close_files            (PROGRAM_CODE* programCodeInfo);
+SPU_ERROR spu_init_info (SPU* programCodeInfo, int argc, const char* argv[]);
+SPU_ERROR spu_dtor_info (SPU* programCodeInfo);
+SPU_ERROR spu_init_files             (SPU* programCodeInfo, int argc, const char* argv[]);
+SPU_ERROR spu_init_program_code_size (SPU* programCodeInfo);
+SPU_ERROR spu_read_program_code_size (SPU* programCodeInfo);
+SPU_ERROR spu_read_program_code      (SPU* programCodeInfo);
+SPU_ERROR spu_close_files            (SPU* programCodeInfo);
 
 #endif

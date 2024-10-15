@@ -1,7 +1,29 @@
+#include <assert.h>
 #include "spu_utils.h"
 
-SPU_ERROR spu_init_program_code_info(PROGRAM_CODE* programCodeInfo, int argc, const char* argv[])
+// TODO asserts
+
+//struct Command {
+//    char opcode  : 4;
+//    char isReg   : 1;
+//    char isImmed : 1;
+//};
+//
+// push opcode 0b0010 = 0x02
+// 0b00.0.1.0010
+// ... 0x12 0x0000000000000005 ...
+
+SPU_ERROR spu_init_info(SPU* programCodeInfo, int argc, const char* argv[])
 {
+    assert(programCodeInfo);
+
+    // 00000001 | 00010000 = 00010001
+    // ERROR_1 = 00000001 => 00010001 & 00000001 == true
+
+    //Foo foo{};
+    //foo.err1 = 1;
+    //if (foo.err3) {}
+
     if (!programCodeInfo)
     {
         return SPU_PROGRAM_CODE_STRUCT_ALLOCATION_ERROR;
@@ -14,18 +36,21 @@ SPU_ERROR spu_init_program_code_info(PROGRAM_CODE* programCodeInfo, int argc, co
     return SPU_NONE;
 }
 
-SPU_ERROR spu_dtor_program_code_info(PROGRAM_CODE* programCodeInfo)
+SPU_ERROR spu_dtor_info(SPU* programCodeInfo)
 {
+    assert(programCodeInfo);
+
     fclose(programCodeInfo->input_file);
-    fclose(programCodeInfo->output_file);
     programCodeInfo->size = 0;
     programCodeInfo->program_code = 0;
 
     return SPU_NONE;
 }
 
-SPU_ERROR spu_init_files(PROGRAM_CODE* programCodeInfo, int argc, const char* argv[])
+SPU_ERROR spu_init_files(SPU* programCodeInfo, int argc, const char* argv[])
 {
+    assert(programCodeInfo);
+
     if (!programCodeInfo)
     {
         return SPU_PROGRAM_CODE_STRUCT_ALLOCATION_ERROR;
@@ -41,22 +66,21 @@ SPU_ERROR spu_init_files(PROGRAM_CODE* programCodeInfo, int argc, const char* ar
     else if (argc == 2)
     {
         programCodeInfo->input_file  = fopen(argv[1], "rb");
-        programCodeInfo->output_file = stdout;
     }
     else if (argc == 3)
     {
         programCodeInfo->input_file  = fopen(argv[1], "rb");
-        programCodeInfo->output_file = fopen(argv[2], "w");
     }
 
-    if (!programCodeInfo->input_file)  return SPU_INPUT_FILE_ALLOCATION_ERROR;
-    if (!programCodeInfo->output_file) return SPU_OUTPUT_FILE_ALLOCATION_ERROR;
+    if (!programCodeInfo->input_file)  return SPU_INPUT_FILE_ALLOCATION_ERROR; // TODO do not write one line ifs
 
     return SPU_NONE;
 }
 
-SPU_ERROR spu_init_program_code_size(PROGRAM_CODE* programCodeInfo)
+SPU_ERROR spu_init_program_code_size(SPU* programCodeInfo)
 {
+    assert(programCodeInfo);
+
     if (!programCodeInfo)
     {
         return SPU_PROGRAM_CODE_STRUCT_ALLOCATION_ERROR;
@@ -71,19 +95,22 @@ SPU_ERROR spu_init_program_code_size(PROGRAM_CODE* programCodeInfo)
         {
             programCodeInfo->size++;
         }
+
         if (feof(programCodeInfo->input_file))
         {
             break;
         }
     }
 
-    if (programCodeInfo->size < 0) return SPU_INVALID_SIZE;
+    if (programCodeInfo->size < 0) return SPU_INVALID_SIZE; // TODO one line if
 
     return SPU_NONE;
 }
 
-SPU_ERROR spu_read_program_code(PROGRAM_CODE* programCodeInfo)
+SPU_ERROR spu_read_program_code(SPU* programCodeInfo)
 {
+    assert(programCodeInfo);
+
     if (!programCodeInfo)
     {
         return SPU_PROGRAM_CODE_STRUCT_ALLOCATION_ERROR;
@@ -91,6 +118,9 @@ SPU_ERROR spu_read_program_code(PROGRAM_CODE* programCodeInfo)
 
     fseek(programCodeInfo->input_file, 0, SEEK_SET);
     programCodeInfo->program_code = (int* ) calloc(programCodeInfo->size, sizeof(int));
+
+    // TODO check calloc result
+
     for (ssize_t code_element_index = 0; code_element_index < programCodeInfo->size; code_element_index++)
     {
         int tmp = 0;
@@ -104,15 +134,16 @@ SPU_ERROR spu_read_program_code(PROGRAM_CODE* programCodeInfo)
 
 }
 
-SPU_ERROR spu_close_files(PROGRAM_CODE* programCodeInfo)
+SPU_ERROR spu_close_files(SPU* programCodeInfo)
 {
+    assert(programCodeInfo);
+
     if (!programCodeInfo)
     {
         return SPU_PROGRAM_CODE_STRUCT_ALLOCATION_ERROR;
     }
 
     fclose(programCodeInfo->input_file);
-    fclose(programCodeInfo->output_file);
 
     return SPU_NONE;
 }
