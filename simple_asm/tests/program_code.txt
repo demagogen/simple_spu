@@ -1,9 +1,11 @@
-push 30
-push 40
+in
+in
+popr AX
+popr CX
+NEXT:
+UP:
+GO:
 add
-push 10
-push 20
-sub
-div
-out
-hlt
+add
+add
+

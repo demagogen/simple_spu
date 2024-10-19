@@ -28,7 +28,7 @@ simple_asm:
 	@printf "$(BOLD_GREEN)simple_asm outfile created$(DEFAULT_STYLE)\n\n"
 
 simple_disasm:
-	@printf "$(BOLD_CYAN)START CREATING simple_disasm OUTFILE$(DEFAULT_STYLE)\n\n"
+	@printf "$(BOLD_CYAN)START CREATING simple_disasm OUTFILE$(DEFAULT_STYLE)\n"
 
 	@cd simple_disasm && make
 	@cd ../
@@ -55,6 +55,8 @@ clean:
 	@cd simple_disasm && make clean
 	@cd ../
 	@printf "$(BOLD_MAGENTA)simple_disasm BUILD CLEANED$(DEFAULT_STYLE)\n\n"
+
+	@rm spu_debug.log
 
 	@printf "$(BOLD_CYAN)build cleaned$(DEFAULT_STYLE)\n"
 

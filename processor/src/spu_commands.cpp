@@ -2,6 +2,8 @@
 #include "stack.h"
 #include "spu_utils.h"
 #include "spu_commands.h"
+#include "spu_define_utils.h"
+#include "spu_debug.h"
 #include <assert.h>
 
 const ssize_t start_stack_const = 4;
@@ -20,6 +22,8 @@ SPU_ERROR spu_run_program(SPU* spuInfo)
     {
         char tmp = 0;
         tmp = spu_init_commands(spuInfo);
+            stack_dump(&spuInfo->stackInfo);
+            spu_dump(spuInfo);
         if (tmp == SPU_END_PROGRAM)
         {
             break;
@@ -64,47 +68,86 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
 {
     assert(spuInfo);
 
-    if (spuInfo->program_code[spuInfo->instructional_pointer] == _hlt)
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == HLT)
     {
         return SPU_END_PROGRAM;
     }
-    if (spuInfo->program_code[spuInfo->instructional_pointer] == _push)
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == PUSH)
     {
         spuInfo->instructional_pointer++;
         spu_push(spuInfo, &spuInfo->program_code[spuInfo->instructional_pointer]);
 
         return SPU_NONE;
     }
-    if (spuInfo->program_code[spuInfo->instructional_pointer] == _pop)
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == POP)
     {
         StackElem_t tmp = 0;
         spu_pop(spuInfo, &tmp);
 
         return SPU_NONE;
     }
-    if (spuInfo->program_code[spuInfo->instructional_pointer] == _add)
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == ADD)
     {
         spu_add(spuInfo);
 
         return SPU_NONE;
     }
-    if (spuInfo->program_code[spuInfo->instructional_pointer] == _sub)
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == SUB)
     {
         spu_sub(spuInfo);
 
         return SPU_NONE;
     }
-    if (spuInfo->program_code[spuInfo->instructional_pointer] == _mult)
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == MULT)
     {
         spu_mult(spuInfo);
 
         return SPU_NONE;
     }
-    if (spuInfo->program_code[spuInfo->instructional_pointer] == _div)
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == DIV)
     {
         spu_div(spuInfo);
 
         return SPU_NONE;
+    }
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == PUSHR)
+    {
+        spuInfo->instructional_pointer++;
+        spu_pushr(spuInfo);
+
+        return SPU_NONE;
+    }
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == PUSHR)
+    {
+        spuInfo->instructional_pointer++;
+        spu_pushr(spuInfo);
+
+        return SPU_NONE;
+    }
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == POPR)
+    {
+        spuInfo->instructional_pointer++;
+        spu_popr(spuInfo);
+
+        return SPU_NONE;
+    }
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == IN)
+    {
+        spu_in(spuInfo);
+
+        return SPU_NONE;
+    }
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == OUT)
+    {
+        spu_out(spuInfo);
+
+        return SPU_NONE;
+    }
+    else
+    {
+        spu_syntax_error(spuInfo);
+
+        return SPU_SYNTAX_ERROR;
     }
     return SPU_NONE;
 }
@@ -224,6 +267,78 @@ SPU_ERROR spu_div(SPU* spuInfo)
         return SPU_INVALID_OPERATION_DIV_ON_ZERO;
     }
     spu_push (spuInfo, &result);
+
+    return SPU_NONE;
+}
+
+SPU_ERROR spu_jump(SPU* spuInfo, int jump_point)
+{
+    assert(spuInfo);
+
+    if (jump_point < 0)
+    {
+        return SPU_INVALID_JUMP_POINTER;
+    }
+
+    spuInfo->instructional_pointer = jump_point + 1;
+
+    return SPU_NONE;
+}
+
+SPU_ERROR spu_pushr(SPU* spuInfo)
+{
+    assert(spuInfo);
+
+    size_t reg = spuInfo->program_code[spuInfo->instructional_pointer];
+    VALIDATE_REGISTER(reg);
+
+    StackElem_t push_value = spuInfo->registers_array[reg];
+    spu_push(spuInfo, &push_value);
+
+    return SPU_NONE;
+}
+
+SPU_ERROR spu_popr(SPU* spuInfo)
+{
+    assert(spuInfo);
+
+    size_t reg = spuInfo->program_code[spuInfo->instructional_pointer];
+    VALIDATE_REGISTER(reg);
+
+    StackElem_t pop_value = 0;
+    spu_pop(spuInfo, &pop_value);
+    spuInfo->registers_array[reg] = pop_value;
+
+    return SPU_NONE;
+}
+
+SPU_ERROR spu_in(SPU* spuInfo)
+{
+    assert(spuInfo);
+
+    StackElem_t entered_value = 0;
+    printf("Enter value: _\b");
+    scanf("%d", &entered_value);
+    spu_push(spuInfo, &entered_value);
+
+    return SPU_NONE;
+}
+
+SPU_ERROR spu_syntax_error(SPU* spuInfo)
+{
+    spuInfo->error = SPU_SYNTAX_ERROR;
+    spu_dump(spuInfo);
+
+    return SPU_SYNTAX_ERROR;
+}
+
+SPU_ERROR spu_out(SPU* spuInfo)
+{
+    assert(spuInfo);
+
+    StackElem_t out_element = 0;
+    spu_pop(spuInfo, &out_element);
+    printf("%d\n", out_element);
 
     return SPU_NONE;
 }

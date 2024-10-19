@@ -3,7 +3,7 @@ CC = g++
 OBJECTS_DIR   = build
 OUTFILE 	  = simple_spu
 
-SOURCES 	  = main.cpp spu_commands.cpp stack.cpp color_scheme_changer.cpp hash.cpp spu_utils.cpp
+SOURCES 	  = main.cpp spu_commands.cpp stack.cpp color_scheme_changer.cpp hash.cpp spu_utils.cpp spu_debug.cpp
 
 BOLD_RED 	  = \033[1;31m
 BOLD_GREEN 	  = \033[1;32m
@@ -14,7 +14,9 @@ BOLD_CYAN	  = \033[1;36m
 BOLD_WHITE	  = \033[1;37m
 DEFAULT_STYLE = \033[0m
 
-CFLAGS= -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations 				\
+INCLUDE = -I include
+
+CFLAGS= -I/header -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations 	\
 		-Wc++14-compat -Wmissing-declarations -Wcast-align -Wcast-qual -Wchar-subscripts 					\
 		-Wconditionally-supported -Wconversion -Wctor-dtor-privacy -Wempty-body -Wfloat-equal 				\
 		-Wformat-nonliteral -Wformat-security -Wformat-signedness -Wformat=2 -Winline -Wlogical-op 			\
@@ -37,7 +39,7 @@ OBJECT_FILES = $(addsuffix .o,$(basename $(SOURCES)))
 all: makedir $(OUTFILE)
 
 $(OUTFILE): $(OBJECT_FILES)
-	$(CC) $(addprefix $(OBJECTS_DIR)/,$^) -o $(OBJECTS_DIR)/$(OUTFILE)
+	$(CC) $(addprefix $(OBJECTS_DIR)/,$^) $(INCLUDE) -o $(OBJECTS_DIR)/$(OUTFILE)
 	@printf "$(BOLD_GREEN)DONE$(DEFAULT_STYLE)\n"
 
 #$(SUBMODULE_DIR): %.o: %.cpp
@@ -46,7 +48,7 @@ $(OUTFILE): $(OBJECT_FILES)
 #	@printf "$(BOLD_GREEN)stack's $^ passed $(DEFAULT_STYLE)\n"
 
 $(OBJECT_FILES): %.o: src/%.cpp
-	$(CC) -c $^ -o $(OBJECTS_DIR)/$@
+	$(CC) -c $^ $(INCLUDE) -o $(OBJECTS_DIR)/$@
 	@printf "$(BOLD_GREEN)compiled $^$(DEFAULT_STYLE)\n"
 
 makedir:

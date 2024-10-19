@@ -5,13 +5,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct SPU
+const int registers_quantity_const = 4;
+const int labels_quantity_const   = 30;
+
+enum REGISTER
 {
-    FILE*   input_file;
-    ssize_t size;
-    int*    program_code;
-    int     instructional_pointer;
-    STACK   stackInfo;
+    AX = 0,
+    BX = 1,
+    CX = 2,
+    DX = 3
 };
 
 enum SPU_ERROR
@@ -29,7 +31,9 @@ enum SPU_ERROR
     SPU_NOT_SUITABLE_SIZE_FOR_MULT           = 10,
     SPU_NOT_SUITABLE_SIZE_FOR_DIV            = 11,
     SPU_END_PROGRAM                          = 12,
-    SPU_INVALID_OPERATION_DIV_ON_ZERO        = 13
+    SPU_INVALID_OPERATION_DIV_ON_ZERO        = 13,
+    SPU_INVALID_JUMP_POINTER                 = 14,
+    SPU_INVALID_REGISTER                     = 15
 };
 
 //INSTRUCTION(PUSH, 5, {
@@ -44,15 +48,36 @@ enum SPU_ERROR
 
 enum PROCESSOR_COMMANDS
 {
-    _error = -1,
-    _hlt   =  0,
-    _out   =  1,
-    _push  =  2,
-    _pop   =  3,
-    _add   =  4,
-    _sub   =  5,
-    _mult  =  6,
-    _div   =  7
+    ERROR = -1,
+    HLT   =  0,
+    OUT   =  1,
+    PUSH  =  2,
+    POP   =  3,
+    ADD   =  4,
+    SUB   =  5,
+    MULT  =  6,
+    DIV   =  7,
+    PUSHR =  8,
+    POPR  =  9,
+    IN    = 10
+};
+
+struct LABEL
+{
+    char* label_name;
+    int   label_pointer;
+};
+
+struct SPU
+{
+    SPU_ERROR    error;
+    FILE*        input_file;
+    ssize_t      size;
+    int*         program_code;
+    StackElem_t  registers_array [registers_quantity_const];
+    LABEL        labels[30];
+    int          instructional_pointer;
+    STACK        stackInfo;
 };
 
 #endif

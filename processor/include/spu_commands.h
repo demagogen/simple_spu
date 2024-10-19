@@ -14,5 +14,11 @@ SPU_ERROR spu_mult              (SPU* spuInfo);
 SPU_ERROR spu_div               (SPU* spuInfo);
 SPU_ERROR spu_sub               (SPU* spuInfo);
 SPU_ERROR spu_hlt               (SPU* spuInfo);
+SPU_ERROR spu_jump              (SPU* spuInfo, int jump_point);
+SPU_ERROR spu_pushr             (SPU* spuInfo);
+SPU_ERROR spu_popr              (SPU* spuInfo);
+SPU_ERROR spu_in                (SPU* spuInfo);
+SPU_ERROR spu_syntax_error      (SPU* spuInfo);
+SPU_ERROR spu_out               (SPU* spuInfo);
 
 #endif

@@ -1,0 +1,864 @@
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+main[0x5b1e752e000c] at src/main.cpp:14 born at main
+
+input_file pointer: 0x5b1e7f0302b0
+size of input_file: 9
+instructional_pointer value: 9
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 2
+	register_array[1] = 0
+	register_array[2] = 1
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5b1e752e0075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5b1e7f0302b0
+size of input_file: 9
+instructional_pointer value: 8
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 2
+	register_array[1] = 0
+	register_array[2] = 1
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5b1e752e0075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5b1e7f0302b0
+size of input_file: 9
+instructional_pointer value: 7
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 2
+	register_array[1] = 0
+	register_array[2] = 1
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5b1e752e0075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5b1e7f0302b0
+size of input_file: 9
+instructional_pointer value: 6
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 2
+	register_array[1] = 0
+	register_array[2] = 1
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5b1e752e0075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5b1e7f0302b0
+size of input_file: 9
+instructional_pointer value: 5
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 2
+	register_array[1] = 0
+	register_array[2] = 1
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5b1e752e0075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5b1e7f0302b0
+size of input_file: 9
+instructional_pointer value: 3
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 2
+	register_array[1] = 0
+	register_array[2] = 0
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5b1e752e0075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5b1e7f0302b0
+size of input_file: 9
+instructional_pointer value: 1
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 0
+	register_array[1] = 0
+	register_array[2] = 0
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5b1e752e0075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5b1e7f0302b0
+size of input_file: 9
+instructional_pointer value: 0
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 0
+	register_array[1] = 0
+	register_array[2] = 0
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+main[0x5ac2f2c4700c] at src/main.cpp:14 born at main
+
+input_file pointer: 0x5ac306ba22b0
+size of input_file: 9
+instructional_pointer value: 9
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 21
+	register_array[1] = 0
+	register_array[2] = 12
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5ac2f2c47075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5ac306ba22b0
+size of input_file: 9
+instructional_pointer value: 8
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 21
+	register_array[1] = 0
+	register_array[2] = 12
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5ac2f2c47075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5ac306ba22b0
+size of input_file: 9
+instructional_pointer value: 7
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 21
+	register_array[1] = 0
+	register_array[2] = 12
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5ac2f2c47075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5ac306ba22b0
+size of input_file: 9
+instructional_pointer value: 6
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 21
+	register_array[1] = 0
+	register_array[2] = 12
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5ac2f2c47075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5ac306ba22b0
+size of input_file: 9
+instructional_pointer value: 5
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 21
+	register_array[1] = 0
+	register_array[2] = 12
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5ac2f2c47075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5ac306ba22b0
+size of input_file: 9
+instructional_pointer value: 3
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 21
+	register_array[1] = 0
+	register_array[2] = 0
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5ac2f2c47075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5ac306ba22b0
+size of input_file: 9
+instructional_pointer value: 1
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 0
+	register_array[1] = 0
+	register_array[2] = 0
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+
+                        _   
+                       | |                        
+  ___ _ __  _   _    __| |_   _ _ __ ___  _ __    
+ / __| '_ \| | | |  / _` | | | | '_ ` _ \| '_ \
+ \__ \ |_) | |_| | | (_| | |_| | | | | | | |_) |
+ |___/ .__/ \__,_|  \__,_|\__,_|_| |_| |_| .__/
+     | |                                 | |      
+     |_|                                 |_|      
+no errors in spu
+spu_run_program[0x5ac2f2c47075] at src/spu_commands.cpp:26 born at spu_run_program
+
+input_file pointer: 0x5ac306ba22b0
+size of input_file: 9
+instructional_pointer value: 0
+program code commands list: [10109092444]
+
+register array list:
+	register_array[0] = 0
+	register_array[1] = 0
+	register_array[2] = 0
+	register_array[3] = 0
+
+labels array list:
+labels_array[0] = 0 [POISON]
+labels_array[1] = 0 [POISON]
+labels_array[2] = 0 [POISON]
+labels_array[3] = 0 [POISON]
+labels_array[4] = 0 [POISON]
+labels_array[5] = 0 [POISON]
+labels_array[6] = 0 [POISON]
+labels_array[7] = 0 [POISON]
+labels_array[8] = 0 [POISON]
+labels_array[9] = 0 [POISON]
+labels_array[10] = 0 [POISON]
+labels_array[11] = 0 [POISON]
+labels_array[12] = 0 [POISON]
+labels_array[13] = 0 [POISON]
+labels_array[14] = 0 [POISON]
+labels_array[15] = 0 [POISON]
+labels_array[16] = 0 [POISON]
+labels_array[17] = 0 [POISON]
+labels_array[18] = 0 [POISON]
+labels_array[19] = 0 [POISON]
+labels_array[20] = 0 [POISON]
+labels_array[21] = 0 [POISON]
+labels_array[22] = 0 [POISON]
+labels_array[23] = 0 [POISON]
+labels_array[24] = 0 [POISON]
+labels_array[25] = 0 [POISON]
+labels_array[26] = 0 [POISON]
+labels_array[27] = 0 [POISON]
+labels_array[28] = 0 [POISON]
+labels_array[29] = 0 [POISON]
+

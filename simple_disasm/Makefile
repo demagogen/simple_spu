@@ -31,6 +31,8 @@ CFLAGS= -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-loop
 		nonnull-attribute,null,object-size,return,returns-nonnull-attribute,shift,signed-integer-overflow,$	\
 		undefined,unreachable,vla-bound,vptr
 
+INCLUDE = -I include
+
 OBJECT_FILES  = $(addsuffix .o,$(basename $(SOURCES)))
 SOURCES_FILES = $(addprefix $(SRC_DIR),$(basename $(SOURCES))
 
@@ -39,11 +41,11 @@ SOURCES_FILES = $(addprefix $(SRC_DIR),$(basename $(SOURCES))
 all: makedir $(OUTFILE)
 
 $(OUTFILE): $(OBJECT_FILES)
-	$(CC) $(addprefix $(OBJECTS_DIR)/,$^) -o $(OBJECTS_DIR)/$(OUTFILE)
+	$(CC) $(addprefix $(OBJECTS_DIR)/,$^) $(INCLUDE) -o $(OBJECTS_DIR)/$(OUTFILE)
 	@printf "$(BOLD_GREEN)$^ maid$(DEFAULT_STYLE)\n"
 
 $(OBJECT_FILES): %.o: src/%.cpp
-	$(CC) -c $^ -o $(OBJECTS_DIR)/$@
+	$(CC) -c $^ $(INCLUDE) -o $(OBJECTS_DIR)/$@
 	@printf "$(BOLD_GREEN)$^ passed $(DEFAULT_STYLE)\n"
 
 makedir:
