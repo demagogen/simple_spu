@@ -1,0 +1,50 @@
+push 200
+push 300
+push 400
+push 500
+push 600
+push 700
+push 800
+push 900
+push 1000
+push 1100
+push 1200
+push 1300
+push 1400
+push 1500
+push 1600
+push 1700
+push 1800
+push 1900
+push 2000
+pop
+pop rax
+pop rbx
+pop [rax]
+pop [rbx]
+pop [rax + 3]
+pop [19]
+push [10]
+push rax
+push rbx
+push [rax]
+push [rbx]
+push [rax + 5]
+add
+sub
+div
+mult
+in
+NEXT:
+UP:
+SECOND:
+ANOTHER:
+ja NEXT:
+jae UP:
+jb NEXT:
+jbe NEXT:
+je NEXT:
+jne NEXT:
+hlt
+
+

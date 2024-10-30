@@ -2,7 +2,11 @@
 
 SPU_ERROR spu_dump_(SPU* spuInfo, const char* FILE__, const int LINE__, const char* func__)
 {
-    FILE* log_file = fopen("spu_debug.log", "a");
+    FILE* log_file = fopen("spu_debug.log", "w");
+    if (!log_file)
+    {
+        printf("allocation error in spu_dump\n");
+    }
 
     spu_dump_pretty_title(log_file);
 
@@ -21,10 +25,10 @@ SPU_ERROR spu_dump_(SPU* spuInfo, const char* FILE__, const int LINE__, const ch
     fprintf(log_file, "size of input_file: %lld\n", spuInfo->size);
     fprintf(log_file, "instructional_pointer value: %lld\n", spuInfo->instructional_pointer);
 
-    fprintf(log_file, "program code commands list: [");
+    fprintf(log_file, "program code commands list: [\n");
     for (ssize_t program_code_command = 0; program_code_command < spuInfo->size; program_code_command++)
     {
-        fprintf(log_file, "%lld", spuInfo->program_code[program_code_command]);
+        fprintf(log_file, "%llb\n", spuInfo->program_code[program_code_command]);
     }
     fprintf(log_file, "]\n\n");
 
@@ -33,19 +37,15 @@ SPU_ERROR spu_dump_(SPU* spuInfo, const char* FILE__, const int LINE__, const ch
     {
         fprintf(log_file, "\tregister_array[%d] = %d\n", register_index, spuInfo->registers_array[register_index]);
     }
-    fprintf(log_file, "\n");
 
-    fprintf(log_file, "labels array list:\n");
-    for (size_t label_index = 0; label_index < labels_quantity_const; label_index++)
+    fprintf(log_file, "RAM dump\n");
+    for (size_t ram_index = 0; ram_index < ram_size_const; ram_index++)
     {
-        fprintf(log_file, "labels_array[%d] = %d ", label_index, spuInfo->labels[label_index]);
-        if (spuInfo->labels[label_index].label_pointer <= 0)
-        {
-            fprintf(log_file, "[POISON]");
-        }
-        fprintf(log_file, "\n");
+        fprintf(log_file, "RAM[%3d] = %5d\n", ram_index, spuInfo->ram[ram_index]);
     }
-    fprintf(log_file, "\n");
+    fprintf(log_file, "end RAM dump\n");
+
+    fclose(log_file);
 
     return SPU_NONE;
 }

@@ -1,0 +1,6 @@
+[submodule "simple_asm/kalatushkin"]
+	path = simple_asm/kalatushkin
+	url = https://github.com/demagogen/kalatushkin.git
+[submodule "stack"]
+	path = stack
+	url = https://github.com/demagogen/stack.git

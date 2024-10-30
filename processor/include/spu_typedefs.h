@@ -5,15 +5,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-const int registers_quantity_const = 4;
-const int labels_quantity_const   = 30;
+const int registers_quantity_const = 5;
+const int labels_quantity_const    = 30;
+const int ram_size_const           = 30;
 
 enum REGISTER
 {
-    AX = 0,
-    BX = 1,
-    CX = 2,
-    DX = 3
+    POISON_REGISTER = -1,
+    NULL_REGISTER   =  0,
+    AX              =  1,
+    BX              =  2,
+    CX              =  3,
+    DX              =  4
+};
+
+enum CMD_INFO
+{
+    IMM = 0b00000001,
+    REG = 0b00000010,
+    RAM = 0b00000100
 };
 
 enum SPU_ERROR
@@ -33,7 +43,8 @@ enum SPU_ERROR
     SPU_END_PROGRAM                          = 12,
     SPU_INVALID_OPERATION_DIV_ON_ZERO        = 13,
     SPU_INVALID_JUMP_POINTER                 = 14,
-    SPU_INVALID_REGISTER                     = 15
+    SPU_INVALID_REGISTER                     = 15,
+    SPU_INVALID_ARGUE                        = 16
 };
 
 //INSTRUCTION(PUSH, 5, {
@@ -48,18 +59,24 @@ enum SPU_ERROR
 
 enum PROCESSOR_COMMANDS
 {
-    ERROR = -1,
-    HLT   =  0,
-    OUT   =  1,
-    PUSH  =  2,
-    POP   =  3,
-    ADD   =  4,
-    SUB   =  5,
-    MULT  =  6,
-    DIV   =  7,
-    PUSHR =  8,
-    POPR  =  9,
-    IN    = 10
+    ERROR     = 0b00000000,
+    HLT       = 0b00001000,
+    OUT       = 0b00010000,
+    PUSH      = 0b00011000,
+    POP       = 0b00100000,
+    ADD       = 0b00101000,
+    SUB       = 0b00110000,
+    MULT      = 0b00111000,
+    DIV       = 0b01000000,
+    IN        = 0b01001000,
+    JMP       = 0b01010000,
+    JA        = 0b01011000,
+    JAE       = 0b01100000,
+    JB        = 0b01101000,
+    JBE       = 0b01110000,
+    JE        = 0b01111000, // I use not formatter enum
+    JNE       = 0b00001001,
+    ADD_LABEL = 0b00010001,
 };
 
 struct LABEL
@@ -73,9 +90,9 @@ struct SPU
     SPU_ERROR    error;
     FILE*        input_file;
     ssize_t      size;
-    int*         program_code;
+    char*        program_code;
     StackElem_t  registers_array [registers_quantity_const];
-    LABEL        labels[30];
+    StackElem_t  ram             [ram_size_const];
     int          instructional_pointer;
     STACK        stackInfo;
 };

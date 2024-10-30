@@ -1,9 +1,9 @@
-CC=g++
+CC = g++
 
 OBJECTS_DIR = build
 OUTFILE 	= simple_asm
 
-SOURCES = main.cpp asm.cpp
+SOURCES = main.cpp asm.cpp buffer.cpp text_data.cpp utils.cpp color_scheme.cpp
 
 BOLD_RED 	  = \033[1;31m
 BOLD_GREEN 	  = \033[1;32m
