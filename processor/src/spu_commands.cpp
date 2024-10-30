@@ -24,7 +24,6 @@ SPU_ERROR spu_run_program(SPU* spuInfo)
     for (spuInfo->instructional_pointer; spuInfo->instructional_pointer < spuInfo->size;
          spuInfo->instructional_pointer++)
     {
-        printf("spuInfo->instructional_pointer = %5d\n", spuInfo->instructional_pointer);
         char tmp = 0;
         tmp = spu_init_commands(spuInfo);
         // stack_dump(&spuInfo->stackInfo);
@@ -141,6 +140,11 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
 
         return SPU_NONE;
     }
+    else if (command == CALL)
+    {
+        printf("CALL\tspuInfo->instructional_pointer = %5d\n", spuInfo->instructional_pointer);
+        // spu_call(spuInfo, offset);
+    }
     else if ((command == JMP) ||
              (command == JA ) ||
              (command == JAE) ||
@@ -189,7 +193,6 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
                     printf("\tvalue in ram array: %d\n",
                         spuInfo->ram[register_value + immediate_value]);
                     spu_dump(spuInfo);
-                    exit(0);
                 }
                 else
                 {
@@ -296,10 +299,8 @@ SPU_ERROR spu_add(SPU* spuInfo)
     stack_dump(&spuInfo->stackInfo);
     spu_pop (spuInfo, &var1);
     spu_pop (spuInfo, &var2);
-    printf("var1 = %d\nvar2 = %d\n", var1, var2);
     StackElem_t result = var1 + var2;
     spu_push (spuInfo, &result);
-    exit(0);
 
     return SPU_NONE;
 }
@@ -374,20 +375,42 @@ SPU_ERROR spu_div(SPU* spuInfo)
         return SPU_NOT_SUITABLE_SIZE_FOR_DIV;
     }
 
-    printf("i am in the div\n");
     StackElem_t var1 = 0;
     StackElem_t var2 = 0;
     spu_pop (spuInfo, &var1);
     stack_dump(&spuInfo->stackInfo);
-    printf("stackInfo->pointer = %d\n", spuInfo->stackInfo.size);
     spu_pop (spuInfo, &var2);
-    printf("var1: %d\nvar2: %d\n", var1, var2);
     if (var1 == 0)
     {
         return SPU_INVALID_OPERATION_DIV_ON_ZERO;
     }
     StackElem_t result = var2 / var1;
     spu_push (spuInfo, &result);
+
+    return SPU_NONE;
+}
+
+SPU_ERROR spu_call(SPU* spuInfo, int offset)
+{
+    assert(spuInfo && "null pointer on spuInfo in spu_call\n");
+
+    if (offset < 0)
+    {
+        spuInfo->error = SPU_INVALID_OFFSET;
+        return SPU_INVALID_OFFSET;
+    }
+
+    spuInfo->registers_array[NULL_REGISTER] = spuInfo->instructional_pointer + sizeof(int);
+    spuInfo->instructional_pointer = *(int* )(spuInfo->program_code + spuInfo->instructional_pointer);
+
+    return SPU_NONE;
+}
+
+SPU_ERROR spu_ret(SPU* spuInfo)
+{
+    assert(spuInfo && "null pointer on spuInfo in spu_ret\n");
+
+    spuInfo->instructional_pointer = spuInfo->registers_array[NULL_REGISTER];
 
     return SPU_NONE;
 }
@@ -411,18 +434,12 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
     spu_pop(spuInfo, &val1);
     spu_pop(spuInfo, &val2);
 
-    printf("command: %b\n", spuInfo->program_code[spuInfo->instructional_pointer]);
-    exit(0);
-
     if ((spuInfo->program_code[spuInfo->instructional_pointer] & JA) == JA)
     {
         printf("in JA\n");
-        exit(0);
         if (val1 < val2)
         {
             INIT_POINTER;
-            printf("jump point value: %b\n", spuInfo->program_code[spuInfo->instructional_pointer]);
-            exit(0);
         }
         else
         {
@@ -490,10 +507,7 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
     }
     else
     {
-        printf("ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR ERROR\n");
-        printf("spuInfo->program_code[spuInfo->instructional_pointer] = %b\n",
-            spuInfo->program_code[spuInfo->instructional_pointer]);
-        printf("error error error in jumps_parsing\n");
+        spu_syntax_error(spuInfo);
     }
 
     spu_push(spuInfo, &val2);
@@ -522,7 +536,6 @@ SPU_ERROR spu_in(SPU* spuInfo)
 
 SPU_ERROR spu_syntax_error(SPU* spuInfo)
 {
-    printf("\t\t\tin spu_syntax_error\n");
     if (spuInfo->error != SPU_NONE)
     {
         return spuInfo->error;
@@ -530,7 +543,6 @@ SPU_ERROR spu_syntax_error(SPU* spuInfo)
     spuInfo->error = SPU_SYNTAX_ERROR;
     spu_dump(spuInfo);
     printf("command: %b\n", spuInfo->program_code[spuInfo->instructional_pointer]);
-    exit(0);
 
     return SPU_SYNTAX_ERROR;
 }
@@ -599,13 +611,11 @@ StackElem_t spu_get_arg(SPU* spuInfo)
     {
         if (command & REG)
         {
-            printf("reg not ram command: %b\n", command);
             spuInfo->instructional_pointer++;
             reg_number = spuInfo->program_code[spuInfo->instructional_pointer];
         }
         if (command & IMM)
         {
-            printf("command: %b\n", spuInfo->program_code[spuInfo->instructional_pointer]);
             spuInfo->instructional_pointer++;
             immediate_value = *(StackElem_t* )(spuInfo->program_code + spuInfo->instructional_pointer);
             spuInfo->instructional_pointer += sizeof(int) - 1;

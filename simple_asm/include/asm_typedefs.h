@@ -56,8 +56,10 @@ enum PROCESSOR_COMMANDS
     JBE       = 0b01110000,
     JE        = 0b01111000, // I use not formatter enum
     JNE       = 0b00001001,
-    ADD_LABEL = 0b00010001, // As you can see label code in buffer
-};                          // will be the same with push immediate
+    ADD_LABEL = 0b00010001,
+    CALL      = 0b00010010,
+    RET       = 0b00010011
+};
 
 enum LABEL_ENUM
 {

@@ -44,7 +44,8 @@ enum SPU_ERROR
     SPU_INVALID_OPERATION_DIV_ON_ZERO        = 13,
     SPU_INVALID_JUMP_POINTER                 = 14,
     SPU_INVALID_REGISTER                     = 15,
-    SPU_INVALID_ARGUE                        = 16
+    SPU_INVALID_ARGUE                        = 16,
+    SPU_INVALID_OFFSET                       = 17
 };
 
 //INSTRUCTION(PUSH, 5, {
@@ -77,6 +78,8 @@ enum PROCESSOR_COMMANDS
     JE        = 0b01111000, // I use not formatter enum
     JNE       = 0b00001001,
     ADD_LABEL = 0b00010001,
+    CALL      = 0b00010010,
+    RET       = 0b00010011
 };
 
 struct LABEL

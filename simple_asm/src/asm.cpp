@@ -229,6 +229,15 @@ ASM_ERROR asm_parse_commands(PROGRAM_CODE* programCodeInfo, char* command, int o
 
         return ASM_NONE;
     }
+    if (strcmp(command, "call") == 0)
+    {
+        programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= CALL;
+        asm_jumps_parse_arguments(programCodeInfo, offset);
+    }
+    if (strcmp(command, "ret" ) == 0)
+    {
+        programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= RET;
+    }
     if (strchr(programCodeInfo->text_data.LineData[programCodeInfo->line_ip].lines_pointers, ':'))
     {
         // FIXME somewhere pointer is on word in my local variable
