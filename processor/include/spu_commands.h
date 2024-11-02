@@ -17,9 +17,8 @@ SPU_ERROR   spu_jumps_parse       (SPU* spuInfo);
 SPU_ERROR   spu_in                (SPU* spuInfo);
 SPU_ERROR   spu_syntax_error      (SPU* spuInfo);
 SPU_ERROR   spu_out               (SPU* spuInfo);
-SPU_ERROR   spu_call              (SPU* spuInfo, int offset);
+SPU_ERROR   spu_call              (SPU* spuInfo);
 SPU_ERROR   spu_ret               (SPU* spuInfo);
 StackElem_t spu_get_arg           (SPU* spuInfo);
-
 
 #endif

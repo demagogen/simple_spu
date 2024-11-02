@@ -51,7 +51,6 @@ SPU_ERROR spu_dtor_info(SPU* spuInfo)
         return spuInfo->error;
     }
 
-    fclose(spuInfo->input_file);
     spuInfo->size         = 0;
     spuInfo->program_code = 0;
 
@@ -183,7 +182,7 @@ const char* spu_error_print(SPU* spuInfo)
         DESCRIPTION_(SPU_INVALID_REGISTER                    );
 
         default:
-            return "error print error";
+            return "error ` error";
     }
 
     #undef DESCRIPTION_

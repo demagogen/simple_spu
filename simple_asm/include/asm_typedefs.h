@@ -5,8 +5,11 @@
 #include <stdlib.h>
 #include <cstdio>
 
-const int labels_quantity_const    = 30;
-const int functions_quantity_const = 30;
+const int LabelsQuantityConst    = 30;
+const int FunctionsQuantityConst = 30;
+
+const int ImmediateOffset = sizeof(int) - 1;
+const int PointerOffset   = sizeof(int) - 1;
 
 enum ASM_ERROR
 {

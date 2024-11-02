@@ -1,9 +1,9 @@
 Buffer dump
 
-Buffer size: 30
+Buffer size: 29
 Buffer argue: 0
 Buffer reg: 0
-Buffer size: 84
+Buffer size: 78
 Print buffer
 	buffer[  0] =       11	   10001
 	buffer[  1] =       19	   11001
@@ -17,23 +17,23 @@ Print buffer
 	buffer[  9] =        0	       0
 	buffer[ 10] =        0	       0
 	buffer[ 11] =       28	  101000
-	buffer[ 12] =       10	   10000
-	buffer[ 13] =       13	   10011
-	buffer[ 14] =        0	       0
-	buffer[ 15] =       19	   11001
-	buffer[ 16] =        a	    1010
+	buffer[ 12] =       13	   10011
+	buffer[ 13] =        0	       0
+	buffer[ 14] =       19	   11001
+	buffer[ 15] =        a	    1010
+	buffer[ 16] =        0	       0
 	buffer[ 17] =        0	       0
 	buffer[ 18] =        0	       0
-	buffer[ 19] =        0	       0
-	buffer[ 20] =       10	   10000
-	buffer[ 21] =       12	   10010
-	buffer[ 22] =        1	       1
+	buffer[ 19] =       10	   10000
+	buffer[ 20] =       12	   10010
+	buffer[ 21] =        1	       1
+	buffer[ 22] =        0	       0
 	buffer[ 23] =        0	       0
 	buffer[ 24] =        0	       0
-	buffer[ 25] =       11	   10001
-	buffer[ 26] =       10	   10000
-	buffer[ 27] =        0	       0
-	buffer[ 28] =        8	    1000
+	buffer[ 25] =       10	   10000
+	buffer[ 26] =        0	       0
+	buffer[ 27] =       10	   10000
+	buffer[ 28] =        0	       0
 	buffer[ 29] =        0	       0
 	buffer[ 30] =        0	       0
 	buffer[ 31] =        0	       0
@@ -83,12 +83,6 @@ Print buffer
 	buffer[ 75] =        0	       0
 	buffer[ 76] =        0	       0
 	buffer[ 77] =        0	       0
-	buffer[ 78] =        0	       0
-	buffer[ 79] =        0	       0
-	buffer[ 80] =        0	       0
-	buffer[ 81] =        0	       0
-	buffer[ 82] =        0	       0
-	buffer[ 83] =        0	       0
 
 
 end buffer dump

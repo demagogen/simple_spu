@@ -25,8 +25,8 @@ struct PROGRAM_CODE
     size_t    size;
     size_t    line_ip;
     size_t    label_ip;
-    LABEL     labels   [labels_quantity_const];
-    FUNCTIONS functions[functions_quantity_const];
+    LABEL     labels   [LabelsQuantityConst];
+    FUNCTIONS functions[FunctionsQuantityConst];
     TEXT_DATA text_data;
     BUFFER    bufferInfo;
     char*     program_code;

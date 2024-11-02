@@ -3,17 +3,36 @@
 #include "text_data.h"
 #include "asm.h"
 
+int indicator = 0;
+
 ASM_ERROR asm_read_file(PROGRAM_CODE* programCodeInfo, const int argc, const char* argv[])
 {
     asm_init_program_code_struct ( programCodeInfo);
+
     asm_open_input_file          ( programCodeInfo, argc, argv);
     count_symbols                ( programCodeInfo->input_file, &programCodeInfo->text_data);
     fill_text                    ( programCodeInfo->input_file, &programCodeInfo->text_data);
     buffer_set_size              (&programCodeInfo->bufferInfo, programCodeInfo->text_data.lines * (sizeof(int) + 2 * sizeof(char)));
     asm_fill_buffer              ( programCodeInfo);
-    asm_create_output_file       ( programCodeInfo);
+
+    programCodeInfo->line_ip       = 0;
+    programCodeInfo->bufferInfo.ip = 0;
+
+    // asm_open_input_file          ( programCodeInfo, argc, argv);
+    // count_symbols                ( programCodeInfo->input_file, &programCodeInfo->text_data);
+    // fill_text                    ( programCodeInfo->input_file, &programCodeInfo->text_data);
+    // asm_fill_buffer              ( programCodeInfo);
+
+    // asm_fill_buffer              ( programCodeInfo);
+    indicator = 1;
+    printf("____________________________________________________________________\n");
+    printf("____________________________________________________________________\n");
+    printf("____________________________________________________________________\n");
+    asm_fill_buffer(programCodeInfo);
+    buffer_dump(&programCodeInfo->bufferInfo);
 
     asm_labels_dump(programCodeInfo);
+    asm_create_output_file       ( programCodeInfo);
 
     return ASM_NONE;
 }
@@ -25,7 +44,7 @@ ASM_ERROR asm_fill_buffer(PROGRAM_CODE* programCodeInfo)
     {
         char command[30] = {};
         int  offset      =  0;
-        sscanf(programCodeInfo->text_data.LineData[line_pointer_index].lines_pointers, " %s%n", command, &offset); // FIXME to much cringe
+        sscanf(programCodeInfo->text_data.LineData[line_pointer_index].lines_pointers, " %s%n", command, &offset);
         programCodeInfo->line_ip = line_pointer_index;
         asm_parse_commands(programCodeInfo, command, offset);
         programCodeInfo->line_ip++;
@@ -85,11 +104,10 @@ ASM_ERROR asm_create_output_file(PROGRAM_CODE* programCodeInfo)
     programCodeInfo->output_file = fopen("a.bin", "w");
     if (!programCodeInfo->output_file)
     {
-        printf("null pointer on output_file in asm_create_output_file\n");
         return ASM_OUTPUT_FILE_ALLOCATION_ERROR;
     }
 
-    buffer_dump(&programCodeInfo->bufferInfo);
+    // buffer_dump(&programCodeInfo->bufferInfo);
     fwrite(programCodeInfo->bufferInfo.buffer, sizeof(char), programCodeInfo->bufferInfo.size, programCodeInfo->output_file);
 
     fclose(programCodeInfo->output_file);
@@ -105,9 +123,9 @@ ASM_ERROR asm_init_program_code_struct(PROGRAM_CODE* programCodeInfo)
     programCodeInfo->output_file  = NULL;
     programCodeInfo->program_code = NULL;
     // programCodeInfo->labels       = {};
-    programCodeInfo->label_ip     = 0;
-    programCodeInfo->size         = 0;
-    programCodeInfo->line_ip      = 0;
+    programCodeInfo->label_ip = 0;
+    programCodeInfo->size     = 0;
+    programCodeInfo->line_ip  = 0;
 
     for (size_t label_index = 0; label_index < programCodeInfo->label_ip; label_index++)
     {
@@ -122,123 +140,125 @@ ASM_ERROR asm_init_program_code_struct(PROGRAM_CODE* programCodeInfo)
 
 ASM_ERROR asm_parse_commands(PROGRAM_CODE* programCodeInfo, char* command, int offset)
 {
+    printf("%d: command: %s : %d\n", indicator, command, programCodeInfo->bufferInfo.ip);
     assert(programCodeInfo && "null pointer on programCodeInfo in asm_parse_commands\n");
-
-    if (strcmp(command, "hlt" ) == 0)
+    if (strcmp(command, "call") == 0)
+    {
+        programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= CALL;
+        asm_jumps_parse_arguments(programCodeInfo, offset);
+        printf("strcmp(command, \"call\")\n%d: programCodeInfo->bufferInfo.ip = %d\n",
+            indicator, programCodeInfo->bufferInfo.ip);
+    }
+    else if (strcmp(command, "hlt" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= HLT;
 
         return ASM_NONE;
     }
-    if (strcmp(command, "out" ) == 0)
+    else if (strcmp(command, "out" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= OUT;
 
         return ASM_NONE;
     }
-    if (strcmp(command, "push") == 0)
+    else if (strcmp(command, "push") == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= PUSH;
         asm_push_or_pop_parse_arguments(programCodeInfo, offset);
 
         return ASM_NONE;
     }
-    if (strcmp(command, "pop" ) == 0)
+    else if (strcmp(command, "pop" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= POP;
         asm_push_or_pop_parse_arguments(programCodeInfo, offset);
 
         return ASM_NONE;
     }
-    if (strcmp(command, "add" ) == 0)
+    else if (strcmp(command, "add" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= ADD;
 
         return ASM_NONE;
     }
-    if (strcmp(command, "sub" ) == 0)
+    else if (strcmp(command, "sub" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= SUB;
 
         return ASM_NONE;
     }
-    if (strcmp(command, "mult") == 0)
+    else if (strcmp(command, "mult") == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= MULT;
 
         return ASM_NONE;
     }
-    if (strcmp(command, "div" ) == 0)
+    else if (strcmp(command, "div" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= DIV;
 
         return ASM_NONE;
     }
-    if (strcmp(command, "in"  ) == 0)
+    else if (strcmp(command, "in"  ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= IN;
 
         return ASM_NONE;
     }
-    if (strcmp(command, "jmp" ) == 0)
+    else if (strcmp(command, "jmp" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= JMP;
         asm_jumps_parse_arguments(programCodeInfo, offset);
 
         return ASM_NONE;
     }
-    if (strcmp(command, "ja"  ) == 0)
+    else if (strcmp(command, "ja"  ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= JA;
         asm_jumps_parse_arguments(programCodeInfo, offset);
 
         return ASM_NONE;
     }
-    if (strcmp(command, "jae" ) == 0)
+    else if (strcmp(command, "jae" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= JAE;
         asm_jumps_parse_arguments(programCodeInfo, offset);
 
         return ASM_NONE;
     }
-    if (strcmp(command, "jb"  ) == 0)
+    else if (strcmp(command, "jb"  ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= JB;
         asm_jumps_parse_arguments(programCodeInfo, offset);
 
         return ASM_NONE;
     }
-    if (strcmp(command, "jbe" ) == 0)
+    else if (strcmp(command, "jbe" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= JBE;
         asm_jumps_parse_arguments(programCodeInfo, offset);
 
         return ASM_NONE;
     }
-    if (strcmp(command, "je"  ) == 0)
+    else if (strcmp(command, "je"  ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= JE;
         asm_jumps_parse_arguments(programCodeInfo, offset);
 
         return ASM_NONE;
     }
-    if (strcmp(command, "jne" ) == 0)
+    else if (strcmp(command, "jne" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= JNE;
         asm_jumps_parse_arguments(programCodeInfo, offset);
 
         return ASM_NONE;
     }
-    if (strcmp(command, "call") == 0)
-    {
-        programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= CALL;
-        asm_jumps_parse_arguments(programCodeInfo, offset);
-    }
-    if (strcmp(command, "ret" ) == 0)
+    else if (strcmp(command, "ret" ) == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= RET;
     }
-    if (strchr(programCodeInfo->text_data.LineData[programCodeInfo->line_ip].lines_pointers, ':'))
+    else if (strchr(programCodeInfo->text_data.LineData[programCodeInfo->line_ip].lines_pointers, ':'))
     {
         // FIXME somewhere pointer is on word in my local variable
         // FIXME somewhere pointer is on the line on my
@@ -283,17 +303,14 @@ ASM_ERROR asm_push_or_pop_parse_arguments(PROGRAM_CODE* programCodeInfo, int off
     }
     else if (sscanf(command + offset, " [ %d ]", &value) == 1)
     {
-        printf("ram immediate command: %s\n", command);
         opcode |= IMM | RAM;
     }
     else if (sscanf(command + offset, " r%cx", &register_id) == 1)
     {
-        printf("register command: %s\n", command);
         opcode |= REG;
     }
     else if (sscanf(command + offset, " %d", &value) == 1)
     {
-        printf("immediate command: %s\n", command);
         opcode |= IMM;
     }
 
@@ -309,7 +326,7 @@ ASM_ERROR asm_push_or_pop_parse_arguments(PROGRAM_CODE* programCodeInfo, int off
     {
         programCodeInfo->bufferInfo.ip++;
         *(int* )(programCodeInfo->bufferInfo.buffer + programCodeInfo->bufferInfo.ip) = value;
-        programCodeInfo->bufferInfo.ip += sizeof(int) - 1;
+        programCodeInfo->bufferInfo.ip += ImmediateOffset;
     }
 
     return ASM_NONE;
@@ -324,20 +341,27 @@ ASM_ERROR asm_jumps_parse_arguments(PROGRAM_CODE* programCodeInfo, int offset)
     char jump_point[30] = {};
     sscanf(command + offset, "%s", jump_point);
 
-    for (size_t label_index = 0; label_index < labels_quantity_const; label_index++)
+    for (size_t label_index = 0; label_index < LabelsQuantityConst; label_index++)
     {
-        if (strcmp(programCodeInfo->labels[label_index].label_name, jump_point) == 0)
+        if (programCodeInfo->labels[label_index].label_name)
         {
-            *(int* )(programCodeInfo->bufferInfo.buffer + programCodeInfo->bufferInfo.ip) =
-                programCodeInfo->labels[label_index].label_pointer;
-            programCodeInfo->bufferInfo.ip += sizeof(int) - 1;
+            if (strcmp(programCodeInfo->labels[label_index].label_name, jump_point) == 0)
+            {
+                *(int* )(programCodeInfo->bufferInfo.buffer + programCodeInfo->bufferInfo.ip) =
+                    programCodeInfo->labels[label_index].label_pointer;
+                programCodeInfo->bufferInfo.ip += PointerOffset;
 
-            return ASM_NONE;
+                return ASM_NONE;
+            }
         }
     }
-    for (size_t label_index = 0; label_index < labels_quantity_const; label_index++)
+
+    *(int* )(programCodeInfo->bufferInfo.buffer + programCodeInfo->bufferInfo.ip) = POISON_LABEL;
+    programCodeInfo->bufferInfo.ip += PointerOffset;
+
+    for (size_t label_index = 0; label_index < LabelsQuantityConst; label_index++)
     {
-        if (programCodeInfo->labels[label_index].label_name = NULL)
+        if (!programCodeInfo->labels[label_index].label_name)
         {
             programCodeInfo->labels[label_index].label_name    = jump_point;
             programCodeInfo->labels[label_index].label_pointer = POISON_LABEL;
@@ -345,6 +369,8 @@ ASM_ERROR asm_jumps_parse_arguments(PROGRAM_CODE* programCodeInfo, int offset)
             return ASM_NONE;
         }
     }
+
+    printf("%d: programCodeInfo->bufferInfo.ip = %d\n", indicator, programCodeInfo->bufferInfo.ip);
 
     return ASM_INVALID_LABEL;
 }
@@ -357,7 +383,6 @@ ASM_ERROR asm_label_parse(PROGRAM_CODE* programCodeInfo, char* command, int offs
     programCodeInfo->labels[programCodeInfo->label_ip].label_pointer = programCodeInfo->bufferInfo.ip + 1;
     programCodeInfo->label_ip++;
     asm_labels_dump(programCodeInfo);
-    buffer_dump(&programCodeInfo->bufferInfo);
 
     return ASM_NONE;
 }
@@ -382,7 +407,7 @@ ASM_ERROR asm_labels_dump(PROGRAM_CODE* programCodeInfo)
 
     fprintf(log_file, "Labels dump\n\n");
 
-    for (size_t label_index = 0; label_index < labels_quantity_const; label_index++)
+    for (size_t label_index = 0; label_index < LabelsQuantityConst; label_index++)
     {
         fprintf(log_file, "\tlabels[%2d]: %s = %d\n", label_index,
                                                       programCodeInfo->labels[label_index].label_name,

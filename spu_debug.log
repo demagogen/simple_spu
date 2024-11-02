@@ -8,12 +8,27 @@
      |_|                                 |_|      
 7
 error in spu
-main[0x630dea9d5010] at src/main.cpp:15 born at main
+main[0x57f18bb5c010] at src/main.cpp:15 born at main
 
-input_file pointer: 0x630e2459f2b0
-size of input_file: 84
-instructional_pointer value: 84
+input_file pointer: 0x57f19b94d2b0
+size of input_file: 78
+instructional_pointer value: 78
 program code commands list: [
+11001
+1010
+0
+0
+0
+10000
+10010
+10000
+0
+0
+0
+10000
+0
+1000
+0
 10001
 11001
 11110
@@ -26,28 +41,7 @@ program code commands list: [
 0
 0
 101000
-10000
 10011
-0
-11001
-1010
-0
-0
-0
-10000
-10010
-1
-0
-0
-10001
-10000
-0
-1000
-0
-0
-0
-0
-0
 0
 0
 0
@@ -101,7 +95,7 @@ program code commands list: [
 ]
 
 register array list:
-	register_array[0] = 0
+	register_array[0] = 10
 	register_array[1] = 0
 	register_array[2] = 0
 	register_array[3] = 0
