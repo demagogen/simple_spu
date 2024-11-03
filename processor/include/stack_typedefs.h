@@ -9,6 +9,7 @@
 // #define HASH_PROTECT
 
 typedef int      StackElem_t;
+// typedef double   StackElem_t;
 typedef uint64_t Canary_t;
 
 enum STACK_ERROR

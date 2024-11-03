@@ -3,8 +3,6 @@
 #include "text_data.h"
 #include "asm.h"
 
-int indicator = 0;
-
 ASM_ERROR asm_read_file(PROGRAM_CODE* programCodeInfo, const int argc, const char* argv[])
 {
     asm_init_program_code_struct ( programCodeInfo);
@@ -24,7 +22,6 @@ ASM_ERROR asm_read_file(PROGRAM_CODE* programCodeInfo, const int argc, const cha
     // asm_fill_buffer              ( programCodeInfo);
 
     // asm_fill_buffer              ( programCodeInfo);
-    indicator = 1;
     printf("____________________________________________________________________\n");
     printf("____________________________________________________________________\n");
     printf("____________________________________________________________________\n");
@@ -142,14 +139,15 @@ ASM_ERROR asm_init_program_code_struct(PROGRAM_CODE* programCodeInfo)
 
 ASM_ERROR asm_parse_commands(PROGRAM_CODE* programCodeInfo, char* command, int offset)
 {
-    printf("%d: command: %s : %d\n", indicator, command, programCodeInfo->bufferInfo.ip);
     assert(programCodeInfo && "null pointer on programCodeInfo in asm_parse_commands\n");
     if (strcmp(command, "call") == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= CALL;
         asm_jumps_parse_arguments(programCodeInfo, offset);
-        printf("strcmp(command, \"call\")\n%d: programCodeInfo->bufferInfo.ip = %d\n",
-            indicator, programCodeInfo->bufferInfo.ip);
+    }
+    else if (strcmp(command, "sqrt") == 0)
+    {
+        programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= SQRT;
     }
     else if (strcmp(command, "ret" ) == 0)
     {
@@ -372,8 +370,6 @@ ASM_ERROR asm_jumps_parse_arguments(PROGRAM_CODE* programCodeInfo, int offset)
             return ASM_NONE;
         }
     }
-
-    printf("%d: programCodeInfo->bufferInfo.ip = %d\n", indicator, programCodeInfo->bufferInfo.ip);
 
     return ASM_INVALID_LABEL;
 }

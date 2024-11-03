@@ -1,17 +1,17 @@
 Labels dump
 
-	labels[ 0]: FACTORIAL: = 13
-	labels[ 1]: EQUAL_TO_ONE: = 52
-	labels[ 2]: FACTORIAL: = 13
-	labels[ 3]: EQUAL_TO_ONE: = 52
-	labels[ 4]: (null) = 0
-	labels[ 5]: (null) = 0
-	labels[ 6]: (null) = 0
-	labels[ 7]: (null) = 0
-	labels[ 8]: (null) = 0
-	labels[ 9]: (null) = 0
-	labels[10]: (null) = 0
-	labels[11]: (null) = 0
+	labels[ 0]: LINEAR_EQUATION: = 79
+	labels[ 1]: NO_OR_INFINITY_SOLUTIONS: = 113
+	labels[ 2]: ONE_ROOT: = 140
+	labels[ 3]: NO_ROOTS: = 172
+	labels[ 4]: TWO_ROOTS: = 193
+	labels[ 5]: INFINITY_SOLUTIONS: = 255
+	labels[ 6]: LINEAR_EQUATION: = 79
+	labels[ 7]: NO_OR_INFINITY_SOLUTIONS: = 113
+	labels[ 8]: ONE_ROOT: = 140
+	labels[ 9]: NO_ROOTS: = 172
+	labels[10]: TWO_ROOTS: = 193
+	labels[11]: INFINITY_SOLUTIONS: = 255
 	labels[12]: (null) = 0
 	labels[13]: (null) = 0
 	labels[14]: (null) = 0

@@ -61,7 +61,8 @@ enum PROCESSOR_COMMANDS
     JNE       = 0b00001001,
     ADD_LABEL = 0b00010001,
     CALL      = 0b00010010,
-    RET       = 0b00010011
+    RET       = 0b00010011,
+    SQRT      = 0b00000111
 };
 
 enum LABEL_ENUM

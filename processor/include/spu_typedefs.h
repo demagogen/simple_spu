@@ -9,6 +9,9 @@ const int RegistersQuantityConst = 5;
 const int LabelsQuantityConst    = 30;
 const int RamSizeConst           = 30;
 
+const ssize_t StartStackConst = 4;
+// const size_t  ElementTypeSize = sizeof(double);
+
 const int ReturnFunctionsPointersQuantityConst = 30;
 
 enum REGISTER
@@ -82,7 +85,8 @@ enum PROCESSOR_COMMANDS
     JNE       = 0b00001001,
     ADD_LABEL = 0b00010001,
     CALL      = 0b00010010,
-    RET       = 0b00010011
+    RET       = 0b00010011,
+    SQRT      = 0b00000111
 };
 
 struct LABEL
@@ -99,7 +103,7 @@ struct SPU
     char*        program_code;
     size_t       return_pointer_index;
     size_t       return_pointer  [ReturnFunctionsPointersQuantityConst];
-    StackElem_t  registers_array [RegistersQuantityConst];
+    int          registers_array [RegistersQuantityConst];
     StackElem_t  ram             [RamSizeConst];
     int          instructional_pointer;
     STACK        stackInfo;

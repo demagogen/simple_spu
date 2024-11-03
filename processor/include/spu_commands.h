@@ -15,6 +15,7 @@ SPU_ERROR   spu_div               (SPU* spuInfo);
 SPU_ERROR   spu_sub               (SPU* spuInfo);
 SPU_ERROR   spu_jumps_parse       (SPU* spuInfo);
 SPU_ERROR   spu_in                (SPU* spuInfo);
+SPU_ERROR   spu_sqrt              (SPU* spuInfo);
 SPU_ERROR   spu_syntax_error      (SPU* spuInfo);
 SPU_ERROR   spu_out               (SPU* spuInfo);
 SPU_ERROR   spu_call              (SPU* spuInfo);

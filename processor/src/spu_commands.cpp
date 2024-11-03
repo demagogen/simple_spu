@@ -6,8 +6,6 @@
 #include "spu_debug.h"
 #include <assert.h>
 
-const ssize_t StartStackConst = 4;
-
 SPU_ERROR spu_run_program(SPU* spuInfo)
 {
     assert(spuInfo);
@@ -27,6 +25,11 @@ SPU_ERROR spu_run_program(SPU* spuInfo)
         // printf("%d: command: %b\n", spuInfo->instructional_pointer, spuInfo->program_code[spuInfo->instructional_pointer]);
         char tmp = 0;
         tmp = spu_init_commands(spuInfo);
+        // stack_dump(&spuInfo->stackInfo);
+        // for (size_t ram_element = 0; ram_element < 5; ram_element++)
+        // {
+            // printf("%d: ram element = %d\n", ram_element, spuInfo->ram[ram_element]);
+        // }
         // stack_dump(&spuInfo->stackInfo);
 
         // stack_dump(&spuInfo->stackInfo);
@@ -87,6 +90,9 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
     }
 
     char command = spuInfo->program_code[spuInfo->instructional_pointer];
+
+    static int init_calls = 0;
+    init_calls++;
 
     if (command == 0)
     {
@@ -160,6 +166,12 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
 
         return SPU_NONE;
     }
+    else if (command == SQRT)
+    {
+        spu_sqrt(spuInfo);
+
+        return SPU_NONE;
+    }
     else if ((command & PUSH) == PUSH)
     {
         StackElem_t tmp = spu_get_arg(spuInfo);
@@ -168,11 +180,12 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
 
         return SPU_NONE;
     }
-    else if ((command & POP) == POP)
+    else if ((command & POP) == POP) //TODO remove ULTIMATE CRINGE
     {
         StackElem_t tmp = 0;
         spu_pop(spuInfo, &tmp);
         char command = spuInfo->program_code[spuInfo->instructional_pointer];
+
         if (command & REG)
         {
             spuInfo->instructional_pointer++;
@@ -204,6 +217,25 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
             }
 
             return SPU_NONE;
+        }
+        else
+        {
+            if (command & IMM)
+            {
+                spuInfo->instructional_pointer++;
+                StackElem_t immediate_value = *(StackElem_t* )(spuInfo->program_code + spuInfo->instructional_pointer);
+
+                if (command & RAM)
+                {
+                    spuInfo->ram[immediate_value] = tmp;
+                    spu_dump(spuInfo);
+                    spuInfo->instructional_pointer += sizeof(int) - 1;
+                }
+                else
+                {
+                    spu_syntax_error(spuInfo);
+                }
+            }
         }
         // stack_dump(&spuInfo->stackInfo);
 
@@ -357,6 +389,8 @@ SPU_ERROR spu_div(SPU* spuInfo)
         return SPU_INVALID_OPERATION_DIV_ON_ZERO;
     }
     StackElem_t result = var2 / var1;
+    // printf("spu_div result = %d\n", result);
+    // exit(0);
     spu_push (spuInfo, &result);
 
     return SPU_NONE;
@@ -534,6 +568,23 @@ SPU_ERROR spu_in(SPU* spuInfo)
     return SPU_NONE;
 }
 
+SPU_ERROR spu_sqrt(SPU* spuInfo)
+{
+    assert(spuInfo && "null pointer on spuInfo in spu_sqrt\n");
+
+    if (spuInfo->error != SPU_NONE)
+    {
+        return spuInfo->error;
+    }
+
+    StackElem_t val = 0;
+    spu_pop(spuInfo, &val);
+    val = sqrt(val);
+    spu_push(spuInfo, &val);
+
+    return SPU_NONE;
+}
+
 SPU_ERROR spu_syntax_error(SPU* spuInfo)
 {
     if (spuInfo->error != SPU_NONE)
@@ -595,11 +646,11 @@ StackElem_t spu_get_arg(SPU* spuInfo)
         }
         else if (!(command & REG) && command & IMM)
         {
-            return spuInfo->ram[reg_number + immediate_value];
+            return spuInfo->ram[immediate_value];
         }
         else if (command & REG && !(command & IMM))
         {
-            return spuInfo->ram[immediate_value];
+            return spuInfo->ram[reg_number];
         }
         else
         {

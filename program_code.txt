@@ -1,4 +1,110 @@
 in ; enter a param
 in ; enter b param
 in ; enter c param
+pop [3]
+pop [2]
+pop [1]
+push [1]
+push 0
+je LINEAR_EQUATION:
+pop
+pop
+push [2]
+push [2]
+mult
+push [1]
+push [3]
+mult
+push 4
+mult
+je ONE_ROOT:
+jb NO_ROOTS:
+ja TWO_ROOTS:
 
+LINEAR_EQUATION:
+    pop
+    pop
+    push [3]
+    push [2]
+    push 0
+    je NO_OR_INFINITY_SOLUTIONS:
+    pop
+    div
+    push -1
+    mult
+    out
+
+    hlt
+
+    NO_OR_INFINITY_SOLUTIONS:
+        pop
+        je INFINITY_SOLUTIONS:
+        push -1
+        push -1
+        push -1
+        out
+        out
+        out
+
+        hlt
+
+ONE_ROOT:
+    push 0
+    push [2]
+    push [3]
+    push 2
+    mult
+    div
+    push -1
+    mult
+    out
+
+    hlt
+
+NO_ROOTS:
+    push -2
+    push -2
+    push -2
+    out
+    out
+    out
+
+    hlt
+
+TWO_ROOTS:
+    sub
+    sqrt
+    pop rax
+    push [2]
+    push -1
+    mult
+    push rax
+    add
+    push 2
+    push [1]
+    mult
+    div
+    out
+
+    push [2]
+    push -1
+    mult
+    push rax
+    sub
+    push [1]
+    push 2
+    mult
+    div
+    out
+
+    hlt
+
+INFINITY_SOLUTIONS:
+    push 0
+    push 0
+    push 0
+    out
+    out
+    out
+
+    hlt
