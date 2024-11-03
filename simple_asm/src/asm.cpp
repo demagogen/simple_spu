@@ -40,7 +40,7 @@ ASM_ERROR asm_read_file(PROGRAM_CODE* programCodeInfo, const int argc, const cha
 ASM_ERROR asm_fill_buffer(PROGRAM_CODE* programCodeInfo)
 {
     assert(programCodeInfo && "null pointer on programCodeInfo in asm_fill_buffer\n");
-    for (size_t line_pointer_index = 0; line_pointer_index < programCodeInfo->text_data.lines; line_pointer_index++)
+    for (size_t line_pointer_index = 0; line_pointer_index < programCodeInfo->text_data.lines + 1; line_pointer_index++) //TODO cringe
     {
         char command[30] = {};
         int  offset      =  0;
@@ -49,6 +49,8 @@ ASM_ERROR asm_fill_buffer(PROGRAM_CODE* programCodeInfo)
         asm_parse_commands(programCodeInfo, command, offset);
         programCodeInfo->line_ip++;
         programCodeInfo->bufferInfo.ip++;
+        printf("command: %s\n", command);
+        printf("programCodeInfo->text_data.lines = %d\n", programCodeInfo->text_data.lines);
     }
 
     return ASM_NONE;
@@ -148,6 +150,10 @@ ASM_ERROR asm_parse_commands(PROGRAM_CODE* programCodeInfo, char* command, int o
         asm_jumps_parse_arguments(programCodeInfo, offset);
         printf("strcmp(command, \"call\")\n%d: programCodeInfo->bufferInfo.ip = %d\n",
             indicator, programCodeInfo->bufferInfo.ip);
+    }
+    else if (strcmp(command, "ret" ) == 0)
+    {
+        programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= RET;
     }
     else if (strcmp(command, "hlt" ) == 0)
     {
@@ -254,10 +260,6 @@ ASM_ERROR asm_parse_commands(PROGRAM_CODE* programCodeInfo, char* command, int o
 
         return ASM_NONE;
     }
-    else if (strcmp(command, "ret" ) == 0)
-    {
-        programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= RET;
-    }
     else if (strchr(programCodeInfo->text_data.LineData[programCodeInfo->line_ip].lines_pointers, ':'))
     {
         // FIXME somewhere pointer is on word in my local variable
@@ -265,8 +267,9 @@ ASM_ERROR asm_parse_commands(PROGRAM_CODE* programCodeInfo, char* command, int o
         // FIXME programCodeInfo->text_data.LineData[programCodeInfo->line_ip].lines_pointers
         // FIXME like here
         // FIXME It's cringe =_=
+        // programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] = ADD_LABEL;
+        programCodeInfo->bufferInfo.ip--;
         command = programCodeInfo->text_data.LineData[programCodeInfo->line_ip].lines_pointers;
-        programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= ADD_LABEL;
         asm_label_parse(programCodeInfo, command, offset);
 
         return ASM_NONE;
@@ -382,7 +385,7 @@ ASM_ERROR asm_label_parse(PROGRAM_CODE* programCodeInfo, char* command, int offs
     programCodeInfo->labels[programCodeInfo->label_ip].label_name    = command;
     programCodeInfo->labels[programCodeInfo->label_ip].label_pointer = programCodeInfo->bufferInfo.ip + 1;
     programCodeInfo->label_ip++;
-    asm_labels_dump(programCodeInfo);
+    // asm_labels_dump(programCodeInfo);
 
     return ASM_NONE;
 }

@@ -21,13 +21,15 @@ SPU_ERROR spu_run_program(SPU* spuInfo)
         return SPU_PROGRAM_CODE_STRUCT_ALLOCATION_ERROR;
     }
 
-    for (spuInfo->instructional_pointer; spuInfo->instructional_pointer < spuInfo->size;
+    for (; spuInfo->instructional_pointer < spuInfo->size;
          spuInfo->instructional_pointer++)
     {
+        // printf("%d: command: %b\n", spuInfo->instructional_pointer, spuInfo->program_code[spuInfo->instructional_pointer]);
         char tmp = 0;
         tmp = spu_init_commands(spuInfo);
         // stack_dump(&spuInfo->stackInfo);
 
+        // stack_dump(&spuInfo->stackInfo);
         if (tmp == SPU_END_PROGRAM)
         {
             break;
@@ -86,7 +88,15 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
 
     char command = spuInfo->program_code[spuInfo->instructional_pointer];
 
-    if (ADD_LABEL == command)
+    if (command == 0)
+    {
+        return SPU_NONE;
+    }
+    else if (command == HLT)
+    {
+        return SPU_END_PROGRAM;
+    }
+    else if (ADD_LABEL == command)
     {
         return SPU_NONE;
     }
@@ -102,15 +112,11 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
 
         return SPU_NONE;
     }
-    else if (RET == command)
+    else if (command == RET)
     {
         spu_ret(spuInfo);
 
         return SPU_NONE;
-    }
-    else if (HLT == command)
-    {
-        return SPU_END_PROGRAM;
     }
     else if (command == ADD)
     {
@@ -196,6 +202,8 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
             {
                 spuInfo->registers_array[register_number] = tmp;
             }
+
+            return SPU_NONE;
         }
         // stack_dump(&spuInfo->stackInfo);
 
@@ -208,9 +216,6 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
         return SPU_SYNTAX_ERROR;
     }
 
-    {
-        exit(0);
-    }
     return SPU_NONE;
 }
 
@@ -361,19 +366,51 @@ SPU_ERROR spu_call(SPU* spuInfo)
 {
     assert(spuInfo && "null pointer on spuInfo in spu_call\n");
 
-    spuInfo->instructional_pointer++;
-    spuInfo->registers_array[NULL_REGISTER] = spuInfo->instructional_pointer + sizeof(int) - 1;
+    for (size_t return_func_index = 0; return_func_index < ReturnFunctionsPointersQuantityConst; return_func_index++)
+    {
+        if (spuInfo->return_pointer[return_func_index] == -1) //TODO POISON return
+        {
+            spuInfo->return_pointer_index++;
+            spuInfo->return_pointer[return_func_index] = spuInfo->instructional_pointer + sizeof(int);
+            spuInfo->instructional_pointer++;
+            spuInfo->instructional_pointer = *(int* )(spuInfo->program_code + spuInfo->instructional_pointer) - 1;
+            // break;
+            return SPU_NONE;
+        }
+    }
 
-    spuInfo->instructional_pointer = *(int* )(spuInfo->program_code + spuInfo->instructional_pointer) - 1;
+    // for (size_t return_func_index = 0; return_func_index < ReturnFunctionsPointersQuantityConst;
+        //  return_func_index++)
+    // {
+        // printf("%d: %d\n", return_func_index, spuInfo->return_pointer[return_func_index]);
+    // }
+    // printf("________________________\n");
+    // printf("________________________\n");
+    // printf("________________________\n");
+    // static int pages = 0;
+    // pages++;
+    // if (pages == 10)
+    // {
+        // exit(0);
+    // }
 
-    return SPU_NONE;
+    return SPU_RETURN_POINTER_ALLOCATION_ERROR;
 }
 
 SPU_ERROR spu_ret(SPU* spuInfo)
 {
     assert(spuInfo && "null pointer on spuInfo in spu_ret\n");
 
-    spuInfo->instructional_pointer = spuInfo->registers_array[NULL_REGISTER];
+    spuInfo->instructional_pointer = spuInfo->return_pointer[spuInfo->return_pointer_index];
+    spuInfo->return_pointer[spuInfo->return_pointer_index] = -1;
+    spuInfo->return_pointer_index--;
+
+    // static int pencil = 0;
+    // pencil++;
+    // if (pencil == 2)
+    // {
+        // exit(0);
+    // }
 
     return SPU_NONE;
 }
@@ -387,9 +424,10 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
         return spuInfo->error;
     }
 
+    //TODO remove cringe leveling (3rd string in define
 #define INIT_POINTER                                                                   \
     spuInfo->instructional_pointer++;                                                  \
-    int jump_point = *(int* )(spuInfo->program_code + spuInfo->instructional_pointer); \
+    int jump_point = *(int* )(spuInfo->program_code + spuInfo->instructional_pointer) - 1;\
     spuInfo->instructional_pointer = jump_point;                                       \
 
     int val1 = 0;
@@ -397,7 +435,7 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
     spu_pop(spuInfo, &val1);
     spu_pop(spuInfo, &val2);
 
-    if ((spuInfo->program_code[spuInfo->instructional_pointer] & JA) == JA)
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == JA)
     {
         if (val1 < val2)
         {
@@ -408,7 +446,7 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
             spuInfo->instructional_pointer += sizeof(int);
         }
     }
-    else if ((spuInfo->program_code[spuInfo->instructional_pointer] & JAE) == JAE)
+    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JAE)
     {
         if (val1 <= val2)
         {
@@ -419,7 +457,7 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
             spuInfo->instructional_pointer += sizeof(int);
         }
     }
-    else if ((spuInfo->program_code[spuInfo->instructional_pointer] & JB) == JB)
+    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JB)
     {
         if (val1 > val2)
         {
@@ -430,7 +468,7 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
             spuInfo->instructional_pointer += sizeof(int);
         }
     }
-    else if ((spuInfo->program_code[spuInfo->instructional_pointer] & JBE) == JBE)
+    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JBE)
     {
         if (val1 >= val2)
         {
@@ -441,7 +479,7 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
             spuInfo->instructional_pointer += sizeof(int);
         }
     }
-    else if ((spuInfo->program_code[spuInfo->instructional_pointer] & JE) == JE)
+    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JE)
     {
         if (val1 == val2)
         {
@@ -452,7 +490,7 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
             spuInfo->instructional_pointer += sizeof(int);
         }
     }
-    else if ((spuInfo->program_code[spuInfo->instructional_pointer] & JNE) == JNE)
+    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JNE)
     {
         if (val1 != val2)
         {
@@ -463,7 +501,7 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
             spuInfo->instructional_pointer += sizeof(int);
         }
     }
-    else if ((spuInfo->program_code[spuInfo->instructional_pointer] & JMP) == JMP)
+    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JMP)
     {
         INIT_POINTER;
     }
@@ -581,7 +619,7 @@ StackElem_t spu_get_arg(SPU* spuInfo)
             immediate_value = *(StackElem_t* )(spuInfo->program_code + spuInfo->instructional_pointer);
             spuInfo->instructional_pointer += sizeof(int) - 1;
         }
-        if (command & REG && command & IMM)
+        if ((command & REG) && (command & IMM))
         {
             return SPU_INVALID_ARGUE;
         }
@@ -591,7 +629,7 @@ StackElem_t spu_get_arg(SPU* spuInfo)
         }
         else if (command & REG && !(command & IMM))
         {
-            return spuInfo->ram[immediate_value];
+            return spuInfo->registers_array[reg_number];
         }
         else
         {

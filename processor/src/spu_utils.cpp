@@ -35,6 +35,13 @@ SPU_ERROR spu_init_info(SPU* spuInfo, int argc, const char* argv[])
     }
 
     spuInfo->error = SPU_NONE;
+    spuInfo->return_pointer_index = -1; //TODO POISON index
+
+    for (size_t return_func_index = 0; return_func_index < ReturnFunctionsPointersQuantityConst; return_func_index++)
+    {
+        spuInfo->return_pointer[return_func_index] = -1; //TODO POISON return pointer
+    }
+
     spu_init_files             (spuInfo, argc, argv);
     spu_init_program_code_size (spuInfo);
     spu_read_program_code      (spuInfo);

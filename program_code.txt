@@ -1,14 +1,4 @@
-push 10
-out
-call roma:
-out
+in ; enter a param
+in ; enter b param
+in ; enter c param
 
-hlt
-
-roma:
-    push 30
-    push 40
-    add
-ret
-
-out

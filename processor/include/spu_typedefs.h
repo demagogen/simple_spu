@@ -5,9 +5,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-const int registers_quantity_const = 5;
-const int labels_quantity_const    = 30;
-const int ram_size_const           = 30;
+const int RegistersQuantityConst = 5;
+const int LabelsQuantityConst    = 30;
+const int RamSizeConst           = 30;
+
+const int ReturnFunctionsPointersQuantityConst = 30;
 
 enum REGISTER
 {
@@ -45,7 +47,8 @@ enum SPU_ERROR
     SPU_INVALID_JUMP_POINTER                 = 14,
     SPU_INVALID_REGISTER                     = 15,
     SPU_INVALID_ARGUE                        = 16,
-    SPU_INVALID_OFFSET                       = 17
+    SPU_INVALID_OFFSET                       = 17,
+    SPU_RETURN_POINTER_ALLOCATION_ERROR      = 18
 };
 
 //INSTRUCTION(PUSH, 5, {
@@ -94,8 +97,10 @@ struct SPU
     FILE*        input_file;
     ssize_t      size;
     char*        program_code;
-    StackElem_t  registers_array [registers_quantity_const];
-    StackElem_t  ram             [ram_size_const];
+    size_t       return_pointer_index;
+    size_t       return_pointer  [ReturnFunctionsPointersQuantityConst];
+    StackElem_t  registers_array [RegistersQuantityConst];
+    StackElem_t  ram             [RamSizeConst];
     int          instructional_pointer;
     STACK        stackInfo;
 };

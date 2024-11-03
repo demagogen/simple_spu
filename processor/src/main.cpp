@@ -18,7 +18,7 @@ int main(int argc, const char* argv[])
     {
         spu_error_print(&spuInfo);
     }
-    stack_dump(&spuInfo.stackInfo);
+    // stack_dump(&spuInfo.stackInfo);
 
     return 0;
 }

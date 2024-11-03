@@ -1,9 +1,9 @@
 Labels dump
 
-	labels[ 0]: roma: = 16
-	labels[ 1]: roma: = 16
-	labels[ 2]: (null) = 0
-	labels[ 3]: (null) = 0
+	labels[ 0]: FACTORIAL: = 13
+	labels[ 1]: EQUAL_TO_ONE: = 52
+	labels[ 2]: FACTORIAL: = 13
+	labels[ 3]: EQUAL_TO_ONE: = 52
 	labels[ 4]: (null) = 0
 	labels[ 5]: (null) = 0
 	labels[ 6]: (null) = 0

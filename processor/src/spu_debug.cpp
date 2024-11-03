@@ -33,13 +33,13 @@ SPU_ERROR spu_dump_(SPU* spuInfo, const char* FILE__, const int LINE__, const ch
     fprintf(log_file, "]\n\n");
 
     fprintf(log_file, "register array list:\n");
-    for (size_t register_index = 0; register_index < registers_quantity_const; register_index++)
+    for (size_t register_index = 0; register_index < RegistersQuantityConst; register_index++)
     {
         fprintf(log_file, "\tregister_array[%d] = %d\n", register_index, spuInfo->registers_array[register_index]);
     }
 
     fprintf(log_file, "RAM dump\n");
-    for (size_t ram_index = 0; ram_index < ram_size_const; ram_index++)
+    for (size_t ram_index = 0; ram_index < RamSizeConst; ram_index++)
     {
         fprintf(log_file, "RAM[%3d] = %5d\n", ram_index, spuInfo->ram[ram_index]);
     }
