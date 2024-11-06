@@ -33,6 +33,7 @@ enum CMD_INFO
 
 enum SPU_ERROR
 {
+    SPU_POISON_POINTER                               = -1,
     SPU_NONE                                 =  0,
     SPU_INPUT_FILE_ALLOCATION_ERROR          =  1,
     SPU_OUTPUT_FILE_ALLOCATION_ERROR         =  2,

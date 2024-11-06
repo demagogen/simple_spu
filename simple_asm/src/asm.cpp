@@ -140,6 +140,8 @@ ASM_ERROR asm_init_program_code_struct(PROGRAM_CODE* programCodeInfo)
 ASM_ERROR asm_parse_commands(PROGRAM_CODE* programCodeInfo, char* command, int offset)
 {
     assert(programCodeInfo && "null pointer on programCodeInfo in asm_parse_commands\n");
+
+    // TODO define for if statement
     if (strcmp(command, "call") == 0)
     {
         programCodeInfo->bufferInfo.buffer[programCodeInfo->bufferInfo.ip] |= CALL;
@@ -390,6 +392,8 @@ ASM_ERROR asm_register_stupid_parse(char* register_id)
 {
     assert(register_id && "null pointer on register_id in asm_register_stupid_parse\n");
 
+    // TODO define
+
     if (*register_id == 'a') *register_id = 1;
     if (*register_id == 'b') *register_id = 2;
     if (*register_id == 'c') *register_id = 3;
@@ -422,8 +426,6 @@ ASM_ERROR asm_labels_dump(PROGRAM_CODE* programCodeInfo)
 ASM_ERROR asm_parse_callbacks(PROGRAM_CODE* programCodeInfo)
 {
     assert(programCodeInfo && "null pointer on programCodeInfo in asm_parse_callbacks\n");
-
-
 
     return ASM_NONE;
 }

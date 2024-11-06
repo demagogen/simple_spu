@@ -1,18 +1,6 @@
 #include <assert.h>
 #include "spu_utils.h"
 
-// TODO asserts
-
-//struct Command {
-//    char opcode  : 4;
-//    char isReg   : 1;
-//    char isImmed : 1;
-//};
-//
-// push opcode 0b0010 = 0x02
-// 0b00.0.1.0010
-// ... 0x12 0x0000000000000005 ...
-
 SPU_ERROR spu_init_info(SPU* spuInfo, int argc, const char* argv[])
 {
     assert(spuInfo);
@@ -22,24 +10,17 @@ SPU_ERROR spu_init_info(SPU* spuInfo, int argc, const char* argv[])
         return spuInfo->error;
     }
 
-    // 00000001 | 00010000 = 00010001
-    // ERROR_1 = 00000001 => 00010001 & 00000001 == true
-
-    //Foo foo{};
-    //foo.err1 = 1;
-    //if (foo.err3) {}
-
     if (!spuInfo)
     {
         return SPU_PROGRAM_CODE_STRUCT_ALLOCATION_ERROR;
     }
 
     spuInfo->error = SPU_NONE;
-    spuInfo->return_pointer_index = -1; //TODO POISON index
+    spuInfo->return_pointer_index = SPU_POISON_POINTER;
 
     for (size_t return_func_index = 0; return_func_index < ReturnFunctionsPointersQuantityConst; return_func_index++)
     {
-        spuInfo->return_pointer[return_func_index] = -1; //TODO POISON return pointer
+        spuInfo->return_pointer[return_func_index] = SPU_POISON_POINTER;
     }
 
     spu_init_files             (spuInfo, argc, argv);
@@ -100,7 +81,7 @@ SPU_ERROR spu_init_files(SPU* spuInfo, int argc, const char* argv[])
     {
         spuInfo->error = SPU_INPUT_FILE_ALLOCATION_ERROR;
 
-        return SPU_INPUT_FILE_ALLOCATION_ERROR; // TODO do not write one line ifs
+        return SPU_INPUT_FILE_ALLOCATION_ERROR;
     }
 
     return SPU_NONE;
@@ -166,8 +147,8 @@ SPU_ERROR spu_close_files(SPU* spuInfo)
 
 const char* spu_error_print(SPU* spuInfo)
 {
-    #define DESCRIPTION_(error_) \
-        case error_: return #error_
+    #define DESCRIPTION_(error_)    \
+        case error_: return #error_ \
 
     switch(spuInfo->error)
     {

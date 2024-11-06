@@ -20,9 +20,9 @@ SPU_ERROR spu_dump_(SPU* spuInfo, const char* FILE__, const int LINE__, const ch
         fprintf(log_file, "error in spu\n");
     }
 
-    fprintf(log_file, "%s[%p] at %s:%d born at %s\n\n", func__, func__, FILE__, LINE__, func__);
-    fprintf(log_file, "input_file pointer: %p\n", spuInfo->input_file);
-    fprintf(log_file, "size of input_file: %lld\n", spuInfo->size);
+    fprintf(log_file, "%s[%p] at %s:%d born at %s\n\n",      func__, func__, FILE__, LINE__, func__);
+    fprintf(log_file, "input_file pointer: %p\n",            spuInfo->input_file);
+    fprintf(log_file, "size of input_file: %lld\n",          spuInfo->size);
     fprintf(log_file, "instructional_pointer value: %lld\n", spuInfo->instructional_pointer);
 
     fprintf(log_file, "program code commands list: [\n");

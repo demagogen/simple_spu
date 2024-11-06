@@ -22,17 +22,9 @@ SPU_ERROR spu_run_program(SPU* spuInfo)
     for (; spuInfo->instructional_pointer < spuInfo->size;
          spuInfo->instructional_pointer++)
     {
-        // printf("%d: command: %b\n", spuInfo->instructional_pointer, spuInfo->program_code[spuInfo->instructional_pointer]);
         char tmp = 0;
         tmp = spu_init_commands(spuInfo);
-        // stack_dump(&spuInfo->stackInfo);
-        // for (size_t ram_element = 0; ram_element < 5; ram_element++)
-        // {
-            // printf("%d: ram element = %d\n", ram_element, spuInfo->ram[ram_element]);
-        // }
-        // stack_dump(&spuInfo->stackInfo);
 
-        // stack_dump(&spuInfo->stackInfo);
         if (tmp == SPU_END_PROGRAM)
         {
             break;
@@ -90,9 +82,6 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
     }
 
     char command = spuInfo->program_code[spuInfo->instructional_pointer];
-
-    static int init_calls = 0;
-    init_calls++;
 
     if (command == 0)
     {
@@ -176,7 +165,6 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
     {
         StackElem_t tmp = spu_get_arg(spuInfo);
         spu_push(spuInfo, &tmp);
-        // stack_dump(&spuInfo->stackInfo);
 
         return SPU_NONE;
     }
@@ -237,7 +225,6 @@ SPU_ERROR spu_init_commands(SPU* spuInfo)
                 }
             }
         }
-        // stack_dump(&spuInfo->stackInfo);
 
         return SPU_NONE;
     }
@@ -389,8 +376,6 @@ SPU_ERROR spu_div(SPU* spuInfo)
         return SPU_INVALID_OPERATION_DIV_ON_ZERO;
     }
     StackElem_t result = var2 / var1;
-    // printf("spu_div result = %d\n", result);
-    // exit(0);
     spu_push (spuInfo, &result);
 
     return SPU_NONE;
@@ -402,31 +387,16 @@ SPU_ERROR spu_call(SPU* spuInfo)
 
     for (size_t return_func_index = 0; return_func_index < ReturnFunctionsPointersQuantityConst; return_func_index++)
     {
-        if (spuInfo->return_pointer[return_func_index] == -1) //TODO POISON return
+        if (spuInfo->return_pointer[return_func_index] == SPU_POISON_POINTER)
         {
             spuInfo->return_pointer_index++;
             spuInfo->return_pointer[return_func_index] = spuInfo->instructional_pointer + sizeof(int);
             spuInfo->instructional_pointer++;
             spuInfo->instructional_pointer = *(int* )(spuInfo->program_code + spuInfo->instructional_pointer) - 1;
-            // break;
+
             return SPU_NONE;
         }
     }
-
-    // for (size_t return_func_index = 0; return_func_index < ReturnFunctionsPointersQuantityConst;
-        //  return_func_index++)
-    // {
-        // printf("%d: %d\n", return_func_index, spuInfo->return_pointer[return_func_index]);
-    // }
-    // printf("________________________\n");
-    // printf("________________________\n");
-    // printf("________________________\n");
-    // static int pages = 0;
-    // pages++;
-    // if (pages == 10)
-    // {
-        // exit(0);
-    // }
 
     return SPU_RETURN_POINTER_ALLOCATION_ERROR;
 }
@@ -436,15 +406,8 @@ SPU_ERROR spu_ret(SPU* spuInfo)
     assert(spuInfo && "null pointer on spuInfo in spu_ret\n");
 
     spuInfo->instructional_pointer = spuInfo->return_pointer[spuInfo->return_pointer_index];
-    spuInfo->return_pointer[spuInfo->return_pointer_index] = -1;
+    spuInfo->return_pointer[spuInfo->return_pointer_index] = SPU_POISON_POINTER;
     spuInfo->return_pointer_index--;
-
-    // static int pencil = 0;
-    // pencil++;
-    // if (pencil == 2)
-    // {
-        // exit(0);
-    // }
 
     return SPU_NONE;
 }
@@ -458,98 +421,43 @@ SPU_ERROR spu_jumps_parse(SPU* spuInfo)
         return spuInfo->error;
     }
 
-    //TODO remove cringe leveling (3rd string in define
-#define INIT_POINTER                                                                   \
-    spuInfo->instructional_pointer++;                                                  \
-    int jump_point = *(int* )(spuInfo->program_code + spuInfo->instructional_pointer) - 1;\
-    spuInfo->instructional_pointer = jump_point;                                       \
+#define INIT_JUMP(jump_type, compare_condition)                             \
+    if (spuInfo->program_code[spuInfo->instructional_pointer] == jump_type) \
+    {                                                                       \
+        if (compare_condition)                                              \
+        {                                                                   \
+            INIT_POINTER;                                                   \
+        }                                                                   \
+        else                                                                \
+        {                                                                   \
+            spuInfo->instructional_pointer += sizeof(int);                  \
+        }                                                                   \
+                                                                            \
+        return SPU_NONE;                                                    \
+    }                                                                       \
+
+/* remove cringe in third line of define, clown */
+#define INIT_POINTER                                                                       \
+    spuInfo->instructional_pointer++;                                                      \
+    int jump_point = *(int* )(spuInfo->program_code + spuInfo->instructional_pointer) - 1; \
+    spuInfo->instructional_pointer = jump_point;                                           \
 
     int val1 = 0;
     int val2 = 0;
     spu_pop(spuInfo, &val1);
     spu_pop(spuInfo, &val2);
 
-    if (spuInfo->program_code[spuInfo->instructional_pointer] == JA)
-    {
-        if (val1 < val2)
-        {
-            INIT_POINTER;
-        }
-        else
-        {
-            spuInfo->instructional_pointer += sizeof(int);
-        }
-    }
-    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JAE)
-    {
-        if (val1 <= val2)
-        {
-            INIT_POINTER;
-        }
-        else
-        {
-            spuInfo->instructional_pointer += sizeof(int);
-        }
-    }
-    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JB)
-    {
-        if (val1 > val2)
-        {
-            INIT_POINTER;
-        }
-        else
-        {
-            spuInfo->instructional_pointer += sizeof(int);
-        }
-    }
-    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JBE)
-    {
-        if (val1 >= val2)
-        {
-            INIT_POINTER;
-        }
-        else
-        {
-            spuInfo->instructional_pointer += sizeof(int);
-        }
-    }
-    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JE)
-    {
-        if (val1 == val2)
-        {
-            INIT_POINTER;
-        }
-        else
-        {
-            spuInfo->instructional_pointer += sizeof(int);
-        }
-    }
-    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JNE)
-    {
-        if (val1 != val2)
-        {
-            INIT_POINTER;
-        }
-        else
-        {
-            spuInfo->instructional_pointer += sizeof(int);
-        }
-    }
-    else if (spuInfo->program_code[spuInfo->instructional_pointer] == JMP)
-    {
-        INIT_POINTER;
-    }
-    else
-    {
-        spu_syntax_error(spuInfo);
-    }
-
-    spu_push(spuInfo, &val2);
-    spu_push(spuInfo, &val1);
+    INIT_JUMP (JA,  val1  < val2);
+    INIT_JUMP (JAE, val1 <= val2);
+    INIT_JUMP (JB,  val1  > val2);
+    INIT_JUMP (JBE, val1 >= val2);
+    INIT_JUMP (JE,  val1 == val2);
+    INIT_JUMP (JNE, val1 != val2);
+    INIT_JUMP (JMP, true);
 
 #undef INIT_POINTER
 
-    return SPU_NONE;
+    return SPU_INVALID_JUMP_POINTER;
 }
 
 SPU_ERROR spu_in(SPU* spuInfo)
